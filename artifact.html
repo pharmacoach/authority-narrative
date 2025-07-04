@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Authority Narrative Builder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* --- GLOBAL STYLES --- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #ffffff;
+      color: #333;
+      line-height: 1.5;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    /* --- HEADER --- */
+    .header {
+      background-color: #9bcea4;
+      color: black;
+      padding: 30px;
+      text-align: left;
+    }
+    .header-content {
+      display: flex;
+      align-items: left;
+      gap: 20px;
+    }
+    .logo {
+      max-height: 80px;
+      width: auto;
+      border-radius: 9px;
+    }
+    .text-block {
+      text-align: left;
+    }
+    .header h1 {
+      font-size: 2.2em;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    .brand {
+      font-size: 0.9em;
+      font-weight: 500;
+      letter-spacing: 1px;
+      opacity: 0.9;
+      margin-bottom: 15px;
+    }
+    .tagline {
+      font-size: 0.85em;
+      letter-spacing: 1px;
+      opacity: 0.8;
+      border-top: 1px solid rgba(255,255,255,0.3);
+      padding-top: 15px;
+    }
+
+    /* --- SECTION BLOCKS --- */
+    .section {
+      padding: 25px 30px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .section h2 {
+      font-size: 1.3em;
+      font-weight: 600;
+      color: black;
+      margin-bottom: 15px;
+    }
+    .section p {
+      font-size: 0.95em;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    /* --- CUSTOM STYLES FOR NARRATIVE BUILDER --- */
+    .examples {
+      background: #f7f7f7;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+      font-style: italic;
+      color: #666;
+      font-size: 0.9em;
+    }
+    
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 16px;
+      font-family: 'Poppins', sans-serif;
+      resize: vertical;
+      transition: border-color 0.3s;
+      margin-top: 10px;
+    }
+    
+    textarea:focus {
+      outline: none;
+      border-color: #9bcea4;
+    }
+    
+    .output-section {
+      background: #f8f9fa;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 25px 30px;
+    }
+    
+    .output-section h2 {
+      font-size: 1.3em;
+      font-weight: 600;
+      color: black;
+      margin-bottom: 15px;
+    }
+    
+    #final-narrative {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      min-height: 120px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    
+    .generate-btn {
+      background: #9bcea4;
+      color: black;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 20px 0;
+      width: 100%;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .generate-btn:hover {
+      background: #8bc394;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .tips {
+      background: #f8f9fa;
+      border: 1px solid #9bcea4;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    
+    .tips h3 {
+      color: #333;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    
+    .tips ul {
+      margin-left: 20px;
+    }
+    
+    .tips li {
+      margin-bottom: 8px;
+      color: #555;
+      font-size: 0.9em;
+    }
+
+    .footer {
+      background: #f8f9fa;
+      border-top: 1px solid #e0e0e0;
+      padding: 20px 30px;
+      font-size: 0.85em;
+      color: #333;
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #1a365d;
+      padding: 4px 8px;
+      transition: color 0.2s ease;
+      display: inline-block;
+    }
+
+    .footer-links a:hover {
+      color: #000;
+    }
+
+    .footer-brand {
+      opacity: 0.7;
+      font-weight: 400;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- HEADER -->
+    <div class="header">
+      <div class="header-content">
+        <img src="logo.jpg" alt="Logo" class="logo" />
+        <div class="text-block">
+          <h1>Authority Narrative Builder</h1>
+          <div class="brand">The Pharma Coach</div>
+          <div class="tagline">
+            Build your professional story that commands attention and respect
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HARD WON LESSONS SECTION -->
+    <div class="section">
+      <h2>1. Hard Won Lessons</h2>
+      <p><strong>What experience gives you unique insight?</strong></p>
+      <p>Think about your most significant professional achievements, the challenges you've overcome, or the expertise you've built through repetition and experience.</p>
+      
+      <div class="examples">
+        <strong>Examples:</strong><br>
+        • "Having managed five Phase III trials across three therapeutic areas..."<br>
+        • "After navigating four regulatory submissions..."<br>
+        • "Through leading commercial launches in 12 markets..."
+      </div>
+      
+      <textarea id="hard-won" placeholder="Write your hard-won lessons here. Start with 'Having...' or 'After...' or 'Through...'"></textarea>
+    </div>
+
+    <!-- DARING CHALLENGE SECTION -->
+    <div class="section">
+      <h2>2. Daring Challenge</h2>
+      <p><strong>What mission drives your expertise?</strong></p>
+      <p>This is your professional moonshot - the ambitious goal that gives meaning to your work and sets you apart from others in your field.</p>
+      
+      <div class="examples">
+        <strong>Examples:</strong><br>
+        • "I'm working to reduce drug development timelines by 30% without compromising safety"<br>
+        • "My focus is bringing innovative therapies to underserved patient populations"<br>
+        • "I specialise in turning around underperforming clinical programmes"
+      </div>
+      
+      <textarea id="daring" placeholder="Write your daring challenge here. Start with 'I'm working to...' or 'My mission is...'"></textarea>
+    </div>
+
+    <!-- UNCOMMON PERSPECTIVE SECTION -->
+    <div class="section">
+      <h2>3. Uncommon Perspective</h2>
+      <p><strong>What do you see differently?</strong></p>
+      <p>Your contrarian view that goes against conventional wisdom. Think Steven Pinker arguing the world is getting better whilst everyone sees decline.</p>
+      
+      <div class="examples">
+        <strong>Examples:</strong><br>
+        • "I believe patient centricity starts with clinical trial design, not marketing"<br>
+        • "Most leaders focus on speed, I focus on sustainable scale"<br>
+        • "While others see regulatory requirements as obstacles, I see them as safeguards"
+      </div>
+      
+      <textarea id="uncommon" placeholder="Write your uncommon perspective here. Start with 'I believe...' or 'While others think..., I see...'"></textarea>
+      
+      <button class="generate-btn" onclick="generateNarrative()">🚀 Generate My Authority Narrative</button>
+    </div>
+
+    <!-- OUTPUT SECTION -->
+    <div class="output-section">
+      <h2>Your Authority Narrative</h2>
+      <div id="final-narrative">
+        Complete the sections above, then click "Generate My Authority Narrative" to see your professional story come together.
+      </div>
+      
+      <div class="tips">
+        <h3>💡 Pro Tips for Maximum Impact</h3>
+        <ul>
+          <li><strong>Be specific:</strong> "Five Phase III trials" is stronger than "multiple clinical studies"</li>
+          <li><strong>Include numbers:</strong> Quantify your experience wherever possible</li>
+          <li><strong>Make it memorable:</strong> Your narrative should stick in people's minds</li>
+          <li><strong>Practice delivery:</strong> Your narrative is only as good as how you present it</li>
+          <li><strong>Adapt for context:</strong> Emphasise different elements for different audiences</li>
+          <li><strong>Keep it concise:</strong> Should be deliverable in 60-90 seconds</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-links">
+        <a href="https://www.thepharmacoach.co/" target="_blank">🌐 Website</a>
+        <a href="https://fridaypharmaclub.substack.com/" target="_blank">📰 Pharma Leaders Club</a>
+        <a href="mailto:ben@thepharmacoach.co">✉️ ben@thepharmacoach.co</a>
+      </div>
+      <div class="footer-brand">
+        &copy; 2025 The Pharma Coach
+      </div>
+    </div>
+
+  </div>
+  
+  <script>
+    function generateNarrative() {
+      const hardWon = document.getElementById('hard-won').value.trim();
+      const daring = document.getElementById('daring').value.trim();
+      const uncommon = document.getElementById('uncommon').value.trim();
+      
+      if (!hardWon || !daring || !uncommon) {
+        document.getElementById('final-narrative').innerHTML = 
+          '<p style="color: #e74c3c; font-style: italic;">Please complete all three sections to generate your narrative.</p>';
+        return;
+      }
+      
+      // Function to ensure text ends with proper punctuation
+      function ensurePunctuation(text) {
+        const trimmed = text.trim();
+        if (!trimmed) return trimmed;
+        
+        // Check if the text already ends with punctuation
+        const lastChar = trimmed.slice(-1);
+        const punctuation = ['.', '!', '?', ';', ':'];
+        
+        if (!punctuation.includes(lastChar)) {
+          return trimmed + '.';
+        }
+        return trimmed;
+      }
+      
+      // Apply punctuation checking to each section
+      const hardWonFormatted = ensurePunctuation(hardWon);
+      const daringFormatted = ensurePunctuation(daring);
+      const uncommonFormatted = ensurePunctuation(uncommon);
+      
+      const narrative = `
+        <p><strong>Your Complete Authority Narrative:</strong></p>
+        <p style="font-size: 18px; line-height: 1.7; color: #2c3e50;">
+          "${hardWonFormatted} ${daringFormatted} ${uncommonFormatted} This unique combination of experience and perspective is why my insights can help drive breakthrough results in complex pharmaceutical environments."
+        </p>
+        <hr style="margin: 20px 0; border: none; height: 1px; background: #ddd;">
+        <p><strong>🎯 Next Steps:</strong></p>
+        <ul style="margin-left: 20px; color: #555;">
+          <li>Practice delivering this in 60-90 seconds</li>
+          <li>Test it with a trusted colleague</li>
+          <li>Use it in your next professional introduction</li>
+          <li>Adapt the emphasis based on your audience</li>
+        </ul>
+      `;
+      
+      document.getElementById('final-narrative').innerHTML = narrative;
+      
+      // Scroll to the output
+      document.getElementById('final-narrative').scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center' 
+      });
+    }
+    
+    // Auto-save to localStorage
+    function saveProgress() {
+      localStorage.setItem('authorityNarrative', JSON.stringify({
+        hardWon: document.getElementById('hard-won').value,
+        daring: document.getElementById('daring').value,
+        uncommon: document.getElementById('uncommon').value
+      }));
+    }
+    
+    // Load saved progress
+    function loadProgress() {
+      const saved = localStorage.getItem('authorityNarrative');
+      if (saved) {
+        const data = JSON.parse(saved);
+        document.getElementById('hard-won').value = data.hardWon || '';
+        document.getElementById('daring').value = data.daring || '';
+        document.getElementById('uncommon').value = data.uncommon || '';
+      }
+    }
+    
+    // Add event listeners for auto-save
+    document.addEventListener('DOMContentLoaded', function() {
+      loadProgress();
+      
+      ['hard-won', 'daring', 'uncommon'].forEach(id => {
+        document.getElementById(id).addEventListener('input', saveProgress);
+      });
+    });
+  </script>
+</body>
+</html>
